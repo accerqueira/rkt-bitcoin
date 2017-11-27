@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+UUID="${1}"
+
+source .env
+
+sudo rkt enter "${UUID}" \
+  ${COMMAND_CLI} "${@:2}"

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+acbuild --debug mount add config /etc/bitcoin/bitcoin.conf
+acbuild --debug mount add data /var/lib/bitcoind
+
+acbuild --debug port add p2p tcp 8333
+acbuild --debug port add rpc tcp 8332

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+acbuild --debug set-name andrecerqueira.com/${IMAGE_NAME}
+acbuild --debug label add version ${IMAGE_VERSION}
+acbuild --debug label add arch ${IMAGE_ARCH}
+acbuild --debug label add os ${IMAGE_OS}
+
+for IMAGE_AUTHOR in "${IMAGE_AUTHORS[@]}"; do
+  acbuild --debug annotation add authors "${IMAGE_AUTHOR}"
+done

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+dep_list() {
+  ldd $(find "${@}" -type f) | grep -Po '/.+(?= \()' | sort -u
+}
+
+
+rsync -aRLk $(dep_list ./rootfs/) ./rootfs/
+
+acbuild --debug copy-to-dir ./rootfs/* /

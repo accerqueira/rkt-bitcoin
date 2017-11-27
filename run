@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+source .env
+
+
+mkdir -p "${CONTAINER_VOLUMES_ROOT}/data/"
+
+[[ -f "${CONTAINER_VOLUMES_ROOT}/bitcoin.conf" ]] || cat <<EOF > "${CONTAINER_VOLUMES_ROOT}/bitcoin.conf"
+txindex=1
+
+discover=1
+listen=1
+port=8333
+
+server=1
+rpcport=8332
+
+rpccookiefile=.cookie
+EOF
+
+
+sudo rkt \
+  --insecure-options=image \
+  run \
+    --interactive \
+    $(for PORT in "${CONTAINER_PORTS[@]}"; do echo "--port ${PORT}"; done) \
+    $(for VOLUME in "${CONTAINER_VOLUMES[@]}"; do echo "--volume ${VOLUME}"; done) \
+    --dns=8.8.8.8 --dns=8.8.4.4 \
+    "${IMAGE_PATH}" -- "${@}"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+BINARY_URL="https://bitcoincore.org/bin/bitcoin-core-0.15.1/bitcoin-0.15.1-x86_64-linux-gnu.tar.gz"
+
+binary_download() {
+  [[ -d "./rootfs/usr/" ]] && return
+  mkdir -p ./rootfs/usr/
+  curl -#SL "${1}" | tar xz -C "./rootfs/usr/" --strip-components=1
+}
+
+binary_download "${BINARY_URL}"

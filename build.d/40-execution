@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+#acbuild --debug set-group bitcoin
+#acbuild --debug set-user bitcoin
+acbuild --debug set-exec -- ${COMMAND_DAEMON}
